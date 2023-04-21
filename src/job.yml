@@ -3,7 +3,7 @@ code: model
 command: >-
   python train.py
   --diabetes-csv ${{inputs.training_data}}
-  --C ${{inputs.reg_rate}}
+  --reg_rate ${{inputs.reg_rate}}
 inputs:
   training_data: 
     type: uri_folder 
