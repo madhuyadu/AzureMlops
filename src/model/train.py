@@ -14,10 +14,15 @@ import mlflow
 # define functions
 def main(args):
     # TO DO: enable autologging
-    mlflow.autolog()
 
+    mlflow.autolog()
+    print("inside main function")
+    print("autologging starts from here...")
+    print("main code execution starts...")
     # read data
     df = get_csvs_df(args.training_data)
+    print("input file is: ")
+    print(df.head(3))
 
     # split data
     X_train, X_test, y_train, y_test = split_data(df)
@@ -27,6 +32,7 @@ def main(args):
 
 
 def get_csvs_df(path):
+    print("inside get_csvs_df function")
     if not os.path.exists(path):
         raise RuntimeError(f"Cannot use non-existent path provided: {path}")
     csv_files = glob.glob(f"{path}/*.csv")
@@ -40,18 +46,21 @@ def split_data(df):
     X = df[['Pregnancies','PlasmaGlucose','DiastolicBloodPressure','TricepsThickness','SerumInsulin','BMI','DiabetesPedigree','Age']].values 
     y = df['Diabetic'].values
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
-    data = {"train": {"X": X_train, "y": y_train},
-            "test": {"X": X_test, "y": y_test}}
-    return data
+    # data = {"train": {"X": X_train, "y": y_train},
+    #         "test": {"X": X_test, "y": y_test}}
+    print("train test split done")
+    return X_train, X_test, y_train, y_test
     
 
 
 def train_model(reg_rate, X_train, X_test, y_train, y_test):
     # train model
+    print("Model training in progress..")
     LogisticRegression(C=1/reg_rate, solver="liblinear").fit(X_train, y_train)
 
 
 def parse_args():
+    print("inside parse_args function")
     # setup arg parser
     parser = argparse.ArgumentParser()
 
@@ -71,6 +80,7 @@ def parse_args():
 if __name__ == "__main__":
     # add space in logs
     print("\n\n")
+    print("Code execution starts...")
     print("*" * 60)
 
     # parse args
