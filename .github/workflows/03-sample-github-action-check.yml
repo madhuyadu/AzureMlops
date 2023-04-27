@@ -3,5 +3,5 @@ on:
   push:
     branches:
       - test_branch
-      run: |
-        echo "Will add code checks here in next challenge"
+      run:
+           echo "Will add code checks here in next challenge"
